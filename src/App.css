@@ -7,7 +7,8 @@ span{
 
 .card{
   position: relative;
-  width: 50%;
+  width: 70%;
+  left:0px;
   margin-top: 10px;
   margin-left: auto;
   margin-right: auto;
