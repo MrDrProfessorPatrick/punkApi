@@ -66,8 +66,7 @@ function CardDefault(props) {
 }
 
 function CardFullInfo(props) {
-  //TODO: indgredienc should be added, method, volume
-  return (
+   return (
     // need to delete id here
     <React.Fragment>
       <b> Name: {props.name} </b>
@@ -119,26 +118,32 @@ class RegistartionFormLogic extends React.Component {
     super(props);
     this.state = {
       isOpened: false,
-      name: "",
-      surname: "",
-      dateOfBirth: "",
-    };
+      email: "",
+      password: "",
+      };
+
     this.openCloseForm = this.openCloseForm.bind(this);
+    this.handleEmailChange = this.handleEmailChange(this)
   }
 
   openCloseForm() {
     this.setState((state) => ({ isOpened: !state.isOpened }));
   }
 
+  handleEmailChange(event){
+    this.setState({ email: event.target.value });
+  }
+
   render() {
     console.log("isOpended", this.state.isOpened);
+    console.log('email', this.state.email)
     return (
       <React.Fragment>
         <button className="open-button" onClick={this.openCloseForm}>
           {!this.state.isOpened ? "Open Form" : "Close Form"}
         </button>
         {this.state.isOpened ? (
-          <RegistrationForm />
+          <RegistrationForm email = {this.state.email} onChange ={this.handleEmailChange}/>
         ) : (
           <React.Fragment></React.Fragment>
         )}
@@ -155,7 +160,7 @@ function RegistrationForm(props) {
         <label for="email">
           <b>Email</b>
         </label>
-        <input type="text" placeholder="Enter Email" name="email" required />
+        <input type="text" placeholder="Enter Email" name="email" required email = {props.email} onChange = {props.handelEmailChange}  />
         <label for="psw">
           <b>Password</b>
         </label>
