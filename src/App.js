@@ -3,37 +3,38 @@ import "./App.css";
 
 function Cards(props) {
   console.log("props.props", props.data); // list with arrays
-  return props.data.map((item) => <Card key={item.id} item={item}/>);
+  return props.data.map((item) => <Card key={item.id} item={item} />);
 }
 
-class Card extends React.Component{
-  constructor(props){
-    super(props)
+class Card extends React.Component {
+  constructor(props) {
+    super(props);
     this.state = {
       isDefault: true,
-    }
+    };
     this.toggle = this.toggle.bind(this);
   }
 
   toggle() {
-    this.setState((state) => ({isDefault: !state.isDefault}))
+    this.setState((state) => ({ isDefault: !state.isDefault }));
   }
 
-  render(){
-    const {item} = this.props;
+  render() {
+    const { item } = this.props;
 
     return (
       <div className="card">
         <button className="showButton" onClick={this.toggle}>
-          {this.state.isDefault ? "Show Full Info" : "Back"} 
+          {this.state.isDefault ? "Show Full Info" : "Back"}
         </button>
         {this.state.isDefault ? (
-          <CardDefault 
+          <CardDefault
             name={item.name}
             image_url={item.image_url}
-            description={item.description}/>
-          ) : (
-          <CardFullInfo 
+            description={item.description}
+          />
+        ) : (
+          <CardFullInfo
             name={item.name}
             description={item.description}
             abv={item.abv}
@@ -45,9 +46,10 @@ class Card extends React.Component{
             ph={item.ph}
             srm={item.srm}
             tagline={item.tagline}
-          />)}
+          />
+        )}
       </div>
-    )
+    );
   }
 }
 
@@ -67,48 +69,107 @@ function CardFullInfo(props) {
   //TODO: indgredienc should be added, method, volume
   return (
     // need to delete id here
+    <React.Fragment>
+      <b> Name: {props.name} </b>
+      <span>
+        <b>Description:</b> {props.description}
+      </span>
+      <span>
+        <b>ABV:</b> {props.abv}
+      </span>
+      <span>
+        <b>Contributed by:</b>
+        {props.contributed_by}
+      </span>{" "}
+      brewers_tips
+      <span>
+        <b>Brewer Tips:</b>
+        {props.brewers_tips}
+      </span>
+      <span>
+        <b>First Brewed:</b>
+        {props.first_brewed}
+      </span>
+      <span>
+        <b>FoodPairing:</b>
+        {props.food_pairing}
+      </span>
+      <span>
+        <b>IBU:</b>
+        {props.ibu}
+      </span>
+      <span>
+        <b>PH:</b>
+        {props.ph}
+      </span>
+      <span>
+        <b>SRM:</b>
+        {props.srm}
+      </span>
+      <span>
+        <b>Tag Line:</b>
+        {props.tagline}
+      </span>
+    </React.Fragment>
+  );
+}
+
+class RegistartionFormLogic extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      isOpened: false,
+      name: "",
+      surname: "",
+      dateOfBirth: "",
+    };
+    this.openCloseForm = this.openCloseForm.bind(this);
+  }
+
+  openCloseForm() {
+    this.setState((state) => ({ isOpened: !state.isOpened }));
+  }
+
+  render() {
+    console.log("isOpended", this.state.isOpened);
+    return (
       <React.Fragment>
-        <b> Name: {props.name} </b>
-        <span>
-          <b>Description:</b> {props.description}
-        </span>
-        <span>
-          <b>ABV:</b> {props.abv}
-        </span>
-        <span>
-          <b>Contributed by:</b>
-          {props.contributed_by}
-        </span>{" "}
-        brewers_tips
-        <span>
-          <b>Brewer Tips:</b>
-          {props.brewers_tips}
-        </span>
-        <span>
-          <b>First Brewed:</b>
-          {props.first_brewed}
-        </span>
-        <span>
-          <b>FoodPairing:</b>
-          {props.food_pairing}
-        </span>
-        <span>
-          <b>IBU:</b>
-          {props.ibu}
-        </span>
-        <span>
-          <b>PH:</b>
-          {props.ph}
-        </span>
-        <span>
-          <b>SRM:</b>
-          {props.srm}
-        </span>
-        <span>
-          <b>Tag Line:</b>
-          {props.tagline}
-        </span>
+        <button className="open-button" onClick={this.openCloseForm}>
+          {!this.state.isOpened ? "Open Form" : "Close Form"}
+        </button>
+        {this.state.isOpened ? (
+          <RegistrationForm />
+        ) : (
+          <React.Fragment></React.Fragment>
+        )}
       </React.Fragment>
+    );
+  }
+}
+
+function RegistrationForm(props) {
+  return (
+    <div className="form-popup" id="myForm">
+      <form className="form-container">
+        <h1>Login</h1>
+        <label for="email">
+          <b>Email</b>
+        </label>
+        <input type="text" placeholder="Enter Email" name="email" required />
+        <label for="psw">
+          <b>Password</b>
+        </label>
+        <input
+          type="password"
+          placeholder="Enter Password"
+          name="psw"
+          required
+        />
+        <button type="submit" className="btn">
+          Login
+        </button>
+      </form>
+    </div>
   );
 }
 
@@ -116,20 +177,20 @@ class Search extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      value: ''
-    }
-    
+      value: "",
+    };
+
     this.handleChange = this.handleChange.bind(this);
   }
 
   handleChange(event) {
-    this.setState({value: event.target.value});
+    this.setState({ value: event.target.value });
 
-    this.props.filterCards(event.target.value)
+    this.props.filterCards(event.target.value);
   }
 
   render() {
-    return <input value = {this.state.value} onChange={this.handleChange}/>
+    return <input value={this.state.value} onChange={this.handleChange} />;
   }
 }
 
@@ -153,8 +214,8 @@ function Error(props) {
 const Statuses = {
   INITIAL: "initial",
   FAILED: "failed",
-  SUCCESSFUL: "successful"
-}
+  SUCCESSFUL: "successful",
+};
 
 export default class Catalog extends React.Component {
   constructor(props) {
@@ -162,9 +223,9 @@ export default class Catalog extends React.Component {
     this.state = {
       list: [],
       statusRequest: Statuses.INITIAL,
-      filteredList: []
+      filteredList: [],
     };
-    this.filterCards = this.filterCards.bind(this)
+    this.filterCards = this.filterCards.bind(this);
   }
 
   componentDidMount() {
@@ -175,10 +236,10 @@ export default class Catalog extends React.Component {
     this.setState((state) => {
       return {
         filteredList: state.list.filter((item) => {
-          return item.name.includes(value) || item.description.includes(value)
-        })
-      }
-    })
+          return item.name.includes(value) || item.description.includes(value);
+        }),
+      };
+    });
   }
 
   async getListProd(url) {
@@ -198,28 +259,22 @@ export default class Catalog extends React.Component {
     }
   }
 
-
   render() {
     console.log("state in render", this.state.list);
     console.log("stateID", this.state.idToShowFullInfo);
     return (
       <div>
-        {this.state.statusRequest ===
-          Statuses.INITIAL && (
-          <p style={{textAlign: 'center', padding: 20}}>Loading...</p>
+        {this.state.statusRequest === Statuses.INITIAL && (
+          <p style={{ textAlign: "center", padding: 20 }}>Loading...</p>
         )}
-        {this.state.statusRequest ===
-          Statuses.SUCCESSFUL && (
-            <React.Fragment>
-              <DropDownToSort />
-              <Search filterCards={this.filterCards}/>
-              <Cards
-                data={this.state.filteredList}
-              />
-            </React.Fragment>
+        {this.state.statusRequest === Statuses.SUCCESSFUL && (
+          <React.Fragment>
+            <Search filterCards={this.filterCards} />
+            <RegistartionFormLogic />
+            <Cards data={this.state.filteredList} />
+          </React.Fragment>
         )}
-        {this.state.statusRequest ===
-          Statuses.FAILED && (
+        {this.state.statusRequest === Statuses.FAILED && (
           <Error error={this.state.statusRequest} />
         )}
       </div>
