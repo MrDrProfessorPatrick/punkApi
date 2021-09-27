@@ -123,7 +123,8 @@ class RegistartionFormLogic extends React.Component {
       };
 
     this.openCloseForm = this.openCloseForm.bind(this);
-    this.handleEmailChange = this.handleEmailChange(this)
+    this.handleEmailChange = this.handleEmailChange.bind(this);
+    this.handlePasswordChanges = this.handlePasswordChanges.bind(this);
   }
 
   openCloseForm() {
@@ -131,19 +132,24 @@ class RegistartionFormLogic extends React.Component {
   }
 
   handleEmailChange(event){
+    console.log('event',event)
     this.setState({ email: event.target.value });
+  }
+  handlePasswordChanges(event){
+    this.setState({ password: event.target.value });
   }
 
   render() {
     console.log("isOpended", this.state.isOpened);
     console.log('email', this.state.email)
+    console.log('password', this.state.password)
     return (
       <React.Fragment>
         <button className="open-button" onClick={this.openCloseForm}>
           {!this.state.isOpened ? "Open Form" : "Close Form"}
         </button>
         {this.state.isOpened ? (
-          <RegistrationForm email = {this.state.email} onChange ={this.handleEmailChange}/>
+          <RegistrationForm email = {this.state.email} handleEmailChange ={this.handleEmailChange} handlePasswordChanges = {this.handlePasswordChanges}/>
         ) : (
           <React.Fragment></React.Fragment>
         )}
@@ -157,18 +163,17 @@ function RegistrationForm(props) {
     <div className="form-popup" id="myForm">
       <form className="form-container">
         <h1>Login</h1>
-        <label for="email">
+        <label htmlFor="email">
           <b>Email</b>
         </label>
-        <input type="text" placeholder="Enter Email" name="email" required email = {props.email} onChange = {props.handelEmailChange}  />
-        <label for="psw">
+          <input type = "text" placeholder="Enter Email" name="email"  value = {props.email} onChange = {((e)=> props.handleEmailChange(e))} />
+        <label htmlFor="psw">
           <b>Password</b>
         </label>
-        <input
-          type="password"
-          placeholder="Enter Password"
-          name="psw"
-          required
+        <input type="password" placeholder="Enter Password"  name="psw" value = {props.password} onChange = {((e)=> props.handlePasswordChanges(e))} required
+         
+          
+         
         />
         <button type="submit" className="btn">
           Login
