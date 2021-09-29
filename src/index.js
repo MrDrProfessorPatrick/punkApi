@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import reportWebVitals from './reportWebVitals';
-import Catalog from './App';
+import Catalog from './Catalog';
 
 ReactDOM.render(
   <Catalog />, document.getElementById('root')
