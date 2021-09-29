@@ -4,6 +4,7 @@ import Error from "./Error.js";
 import RegistartionFormLogic from "./RegistrationFormLogic.js";
 import Search from "./Search.js";
 import {Cards} from "./Cards.js";
+import { SortForm } from "./SortForm";
 
 const Statuses = {
   INITIAL: "initial",
@@ -20,6 +21,7 @@ export default class Catalog extends React.Component {
       filteredList: [],
     };
     this.filterCards = this.filterCards.bind(this);
+    this.sortedCards = this.sortedCards.bind(this);
   }
 
   componentDidMount() {
@@ -34,6 +36,29 @@ export default class Catalog extends React.Component {
         }),
       };
     });
+  }
+
+  sortedCards(value, order) {
+    console.log('ORDER',order)
+    if(order === 'fromSmallest'){
+      this.setState((state) =>{
+        return {
+          filteredList: state.list.sort((a,b) => {
+            return a[value] - b[value];
+          } )
+        }
+      })
+    }
+    if(order === 'fromBiggest'){
+      this.setState((state) =>{
+        return {
+          filteredList: state.list.sort((a,b) => {
+            return b[value] - a[value];
+          } )
+        }
+      })
+    }
+    
   }
 
   async getListProd(url) {
@@ -63,9 +88,12 @@ export default class Catalog extends React.Component {
         )}
         {this.state.statusRequest === Statuses.SUCCESSFUL && (
           <React.Fragment>
+          <SortForm sortedCards = {this.sortedCards}/>
             <Search filterCards={this.filterCards} />
             <RegistartionFormLogic />
+            
             <Cards data={this.state.filteredList} />
+            
           </React.Fragment>
         )}
         {this.state.statusRequest === Statuses.FAILED && (
