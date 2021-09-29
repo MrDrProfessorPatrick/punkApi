@@ -7,39 +7,39 @@ export function CardFullInfo(props) {
         <b> Name: {props.name} </b>
         <span>
           <b>Description:</b> {props.description}
-        </span>
+        </span> <br/>
         <span>
           <b>ABV:</b> {props.abv}
-        </span>
+        </span> <br/>
         <span>
           <b>Contributed by:</b>
           {props.contributed_by}
-        </span>{" "}
+        </span>{" "} <br/>
         brewers_tips
-        <span>
+        <span> 
           <b>Brewer Tips:</b>
           {props.brewers_tips}
-        </span>
+        </span> <br/>
         <span>
           <b>First Brewed:</b>
           {props.first_brewed}
-        </span>
+        </span> <br/>
         <span>
           <b>FoodPairing:</b>
           {props.food_pairing}
-        </span>
+        </span> <br/>
         <span>
           <b>IBU:</b>
           {props.ibu}
-        </span>
-        <span>
+        </span><br/>
+        <span> 
           <b>PH:</b>
           {props.ph}
-        </span>
+        </span> <br/>
         <span>
           <b>SRM:</b>
           {props.srm}
-        </span>
+        </span> <br/>
         <span>
           <b>Tag Line:</b>
           {props.tagline}

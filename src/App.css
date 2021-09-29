@@ -1,5 +1,5 @@
 body{
-  background-color: rgb(230, 227, 227);
+  background-color: rgb(8, 8, 8);
 }
 span{
   display: inline-block;
@@ -8,10 +8,10 @@ span{
 .card{
   position: relative;
   width: 70%;
-  left:0px;
+  right:0px;
   margin-top: 10px;
   margin-left: auto;
-  margin-right: auto;
+  margin-right: 0px;
   background-color: gray;
 }
 
@@ -28,7 +28,8 @@ span{
   width: 100px;
   height: 25px;
   color:cornsilk;
-  background-color: rgb(53, 53, 182);
+  background-color: rgb(23, 23, 151);
+  border-radius: 5px;
 }
 
 .open-button {
@@ -50,7 +51,16 @@ position: absolute;
 width: 180px;
 height: 150px;
 top: 150px;
-background-color: red;
+background-color: #555;
+border-radius: 5px;
+;
+}
+
+.btnSort{
+  width: 180px;
+  height: 30px;
+  background-color: #555;
+  border-radius: 5px;
 }
 
 /* The popup form - hidden by default */

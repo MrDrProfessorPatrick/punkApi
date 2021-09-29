@@ -80,7 +80,7 @@ export class SortForm extends React.Component {
           />
            <label for="fromSmallest">Sort from the smallest value to the biggest</label> <br />
         
-        <input type="button" value="Sort" onClick={this.handleSortChanges} />
+        <input type="button" value="Sort" className = "btnSort" onClick={this.handleSortChanges} />
         </form>
       </div>
     );
